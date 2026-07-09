@@ -23,26 +23,33 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-dark: var(--dark);
-  --font-heading: "Playfair Display", serif;
-  --font-body: "Nunito", sans-serif;
+  --color-forest: var(--forest);
+  --color-forest-foreground: var(--forest-foreground);
+  --color-cream: var(--cream);
+  --font-heading: "Cormorant Garamond", "Playfair Display", serif;
+  --font-body: "Jost", "Nunito Sans", sans-serif;
+  --font-eyebrow: "Jost", sans-serif;
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.25rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(0.25 0.02 260);
-  --card: oklch(0.98 0.005 90);
-  --card-foreground: oklch(0.25 0.02 260);
-  --primary: oklch(0.78 0.17 130); /* leafy green from site */
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.78 0.15 75); /* golden accent */
+  --foreground: oklch(0.18 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.02 260);
+  --primary: oklch(0.72 0.19 135); /* accent green */
+  --primary-foreground: oklch(0.15 0.03 150);
+  --secondary: oklch(0.98 0.005 100);
   --secondary-foreground: oklch(0.2 0.02 260);
-  --muted: oklch(0.96 0.01 90);
-  --muted-foreground: oklch(0.45 0.02 260);
-  --accent: oklch(0.78 0.15 75);
-  --accent-foreground: oklch(0.2 0.02 260);
-  --border: oklch(0.9 0.01 90);
-  --dark: oklch(0.28 0.03 250);
+  --muted: oklch(0.97 0.005 100);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: oklch(0.72 0.19 135);
+  --accent-foreground: oklch(0.15 0.03 150);
+  --border: oklch(0.9 0.005 100);
+  --dark: oklch(0.16 0.015 260);
+  --forest: oklch(0.34 0.06 155); /* deep green band */
+  --forest-foreground: oklch(0.98 0.01 100);
+  --cream: oklch(0.97 0.02 90);
 }
 
 @layer base {
@@ -52,14 +59,41 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    font-weight: 400;
   }
-  h1, h2, h3, h4, h5, h6 { font-family: var(--font-heading); }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
 }
 
-@utility section-label {
+@utility eyebrow {
+  font-family: var(--font-eyebrow);
   color: var(--color-primary);
-  font-weight: 700;
-  letter-spacing: 0.15em;
+  font-weight: 500;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-dark);
+  color: white;
+  padding: 0.875rem 1.75rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+@utility btn-primary-hover {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+@utility leaf-bg {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'><path d='M60 10 C 30 30 30 70 60 110 C 90 70 90 30 60 10 Z M 60 20 L 60 100' fill='none' stroke='%23ffffff' stroke-opacity='0.06' stroke-width='1.2'/></svg>");
 }
