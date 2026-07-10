@@ -121,21 +121,9 @@ function Home() {
         )}
       </header>
 
-      {/* Hero — dark image, headline left */}
-      <section id="home" className="relative overflow-hidden bg-dark">
-        <img src={carousel1} alt="Sparsh Tea" className="absolute inset-0 w-full h-full object-cover opacity-70" />
-        <div className="absolute inset-0 bg-gradient-to-r from-dark via-dark/60 to-transparent" />
-        <div className="relative max-w-[1400px] mx-auto px-6 py-32 md:py-44 lg:py-56">
-          <p className="eyebrow text-primary mb-5">organic indian tea</p>
-          <h1 className="font-heading text-white text-5xl md:text-7xl lg:text-8xl leading-[1.05] max-w-2xl mb-6">
-            Start Your<br /><em className="not-italic block">Relaxing Life</em><br />Today
-          </h1>
-          <p className="text-white/85 text-lg mb-10 max-w-md">The wonderful taste of life — brewing excellence, one cup at a time.</p>
-          <a href="#products" className="inline-flex items-center gap-3 bg-white text-dark px-8 py-4 rounded-full text-sm font-medium tracking-wider uppercase hover:bg-primary hover:text-primary-foreground transition">
-            Shop Our Teas <ChevronRight className="w-4 h-4" />
-          </a>
-        </div>
-      </section>
+      {/* Hero — 3D slider */}
+      <HeroSlider3D />
+
 
       {/* About green band */}
       <section id="about" className="relative bg-forest text-forest-foreground leaf-bg py-24 px-6">
