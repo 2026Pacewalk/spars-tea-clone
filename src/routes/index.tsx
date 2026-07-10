@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Search, User, Heart, ShoppingBag, ChevronRight, Menu, X, Leaf, Sprout, Package, Truck, Mail, Phone, MapPin, Star, Instagram, Facebook, Twitter } from "lucide-react";
+import HeroSlider3D from "@/components/HeroSlider3D";
 
 import logo from "@/assets/sparsh/logo.png";
 import carousel1 from "@/assets/sparsh/carousel-1.jpg";
