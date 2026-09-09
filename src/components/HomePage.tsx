@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Search, Heart, ShoppingBag, ChevronRight, Leaf, Sprout, Package, Truck, Mail, Phone, MapPin, Star, Instagram, Clock, Send, Recycle, Palette, HeartPulse, CheckCircle2 } from "lucide-react";
+import { Search, Heart, ShoppingBag, ChevronRight, Leaf, Sprout, Package, Truck, Mail, Phone, MapPin, Star, Instagram, Clock, Send, Recycle, Palette, HeartPulse, CheckCircle2, MessageCircle } from "lucide-react";
 import HeroSlider3D from "@/components/HeroSlider3D";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -25,63 +25,50 @@ import t3 from "@/assets/sparsh/testimonial-3.jpg";
 
 type Product = { name: string; price: string; img: string; hover: string; tag?: string; rating: number };
 
-const productsByTab: Record<string, Product[]> = {
-  "New-In": [
-    { name: "Sparsh Nagni Strong Tea", price: "₹280 – ₹680", img: mockup1, hover: product1, tag: "Bestseller", rating: 4.8 },
-    { name: "Sparsh No.1 Normal Tea", price: "₹220 – ₹560", img: mockup2, hover: product2, tag: "New", rating: 4.6 },
-    { name: "Sparsh Masala Chai", price: "₹260 – ₹640", img: mockup3, hover: product3, tag: "Spiced", rating: 4.9 },
-    { name: "Sparsh Premium Blend", price: "₹340 – ₹820", img: product4, hover: mockup1, tag: "New", rating: 4.7 },
-  ],
-  "Best Seller": [
-    { name: "Sparsh Nagni Strong Tea", price: "₹280 – ₹680", img: mockup1, hover: product1, tag: "Bestseller", rating: 4.9 },
-    { name: "Sparsh Masala Chai", price: "₹260 – ₹640", img: mockup3, hover: product3, tag: "Bestseller", rating: 4.9 },
-    { name: "Sparsh Premium Blend", price: "₹340 – ₹820", img: product4, hover: mockup2, tag: "Bestseller", rating: 4.8 },
-    { name: "Sparsh No.1 Normal Tea", price: "₹220 – ₹560", img: mockup2, hover: product2, rating: 4.6 },
-  ],
-  "Most Popular": [
-    { name: "Sparsh Masala Chai", price: "₹260 – ₹640", img: mockup3, hover: product3, tag: "Popular", rating: 4.9 },
-    { name: "Sparsh Nagni Strong Tea", price: "₹280 – ₹680", img: mockup1, hover: product1, tag: "Popular", rating: 4.8 },
-    { name: "Sparsh No.1 Normal Tea", price: "₹220 – ₹560", img: mockup2, hover: product2, rating: 4.6 },
-    { name: "Sparsh Premium Blend", price: "₹340 – ₹820", img: product4, hover: mockup3, rating: 4.7 },
-  ],
-};
+const products: Product[] = [
+  { name: "Sparsh Naagni Tea", price: "Premium · Strong", img: mockup1, hover: product1, tag: "New", rating: 4.9 },
+  { name: "Sparsh Royal Tea", price: "Rich & Premium", img: product4, hover: mockup2, tag: "New", rating: 4.8 },
+  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", img: mockup2, hover: product2, tag: "Popular", rating: 4.7 },
+  { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: product1, hover: mockup1, tag: "Everyday", rating: 4.6 },
+  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: mockup3, hover: product3, tag: "Spiced", rating: 4.9 },
+  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: product3, hover: mockup3, tag: "Aromatic", rating: 4.8 },
+  { name: "Sparsh Premium Orthodox Tea", price: "Delicate Long-Leaf", img: product2, hover: product4, tag: "Specialty", rating: 4.7 },
+];
 
 const categories = [
-  { name: "Strong Tea", img: product1, count: 4 },
-  { name: "Normal Tea", img: product2, count: 3 },
-  { name: "Masala Chai", img: product3, count: 5 },
-  { name: "Green Blends", img: about1, count: 2 },
-  { name: "Loose Leaf", img: about3, count: 6 },
+  { name: "CTC Tea", img: mockup1, count: 6 },
+  { name: "Orthodox Tea", img: about3, count: 1 },
   { name: "Gift Packs", img: product4, count: 3 },
 ];
 
 const features = [
-  { icon: Leaf, title: "Handpicked Tea", text: "Selected leaf-by-leaf from lush Assam and Nilgiri plantations." },
-  { icon: Sprout, title: "100% Natural", text: "No artificial colours or preservatives — pure garden freshness." },
-  { icon: Package, title: "Packaged Fresh at Source", text: "Sealed at origin to lock in aroma, flavour and antioxidants." },
-  { icon: Truck, title: "Shipped Direct to Doorstep", text: "Fast, careful shipping across India from our Kotkapura house." },
+  { icon: Leaf, title: "Carefully Selected", text: "Leaves chosen with quality in mind, blend after blend." },
+  { icon: Package, title: "Freshly Packed", text: "Packaging designed to preserve freshness and aroma." },
+  { icon: CheckCircle2, title: "Consistent Quality", text: "A dependable cup, every single time." },
+  { icon: Star, title: "Authentic Flavour", text: "Crafted for a rich, satisfying taste." },
+  { icon: HeartPulse, title: "No Acidity", text: "Gentle on your stomach, easy on your day." },
 ];
 
 const reviews = [
-  { name: "Vikram", date: "January 2024", avatar: t2, text: "Tea is an essential part of my daily routine, and Sparsh has become my go-to. The quality is top-notch — it's like a natural detox for body and mind." },
-  { name: "Priya", date: "May 2024", avatar: t3, text: "I've tried several tea brands, but none compare to the freshness here. The masala chai has become a family favourite every morning." },
-  { name: "Sakshi", date: "July 2024", avatar: t1, text: "As a tea enthusiast, Sparsh stands out. The variety is incredible and I've noticed a real improvement in my digestion since switching." },
-  { name: "Rahul", date: "August 2024", avatar: t2, text: "Bold, malty, and perfectly balanced. Sparsh Nagni is my go-to morning cup — nothing else comes close." },
-  { name: "Meera", date: "September 2024", avatar: t3, text: "The aroma the moment you open the pack is unreal. Fresh, fragrant and full of flavour — you can taste the garden." },
-  { name: "Arjun", date: "October 2024", avatar: t1, text: "Fast delivery and beautiful packaging. The No.1 blend is now a daily ritual in our home. Highly recommended." },
-  { name: "Neha", date: "November 2024", avatar: t2, text: "I switched to Sparsh masala chai and never looked back. Perfectly spiced, never bitter — exactly like home." },
+  { name: "Vikram", date: "on Sparsh Naagni Tea", avatar: t2, text: "Rich flavour, beautiful aroma — my everyday morning chai." },
+  { name: "Priya", date: "on Sparsh Elaichi Tea", avatar: t3, text: "The Elaichi Tea has become part of our family tea routine." },
+  { name: "Sakshi", date: "on Sparsh Masala Tea", avatar: t1, text: "Perfectly spiced masala chai — comforting, aromatic and never bitter." },
+  { name: "Rahul", date: "on Sparsh Naagni Tea", avatar: t2, text: "Strong and full-bodied, but no acidity at all. Exactly what I wanted in a chai." },
+  { name: "Meera", date: "on Sparsh Gold Tea", avatar: t3, text: "Naturally sweet and smooth — an easy, pleasant cup the whole family enjoys." },
+  { name: "Arjun", date: "on Sparsh No.1 Tea", avatar: t1, text: "A dependable, balanced everyday cup. Fresh, aromatic and consistent." },
+  { name: "Neha", date: "on Sparsh Premium Orthodox Tea", avatar: t2, text: "Delicate and fragrant — a lovely, refined change from regular chai." },
 ];
 
 const gallery = [about1, about2, about3, about4, about5, about6];
 
 const teaDetails = [
   {
-    tag: "Sparsh Nagni Tea",
+    tag: "Sparsh Naagni Tea · Premium",
     title: "A Bold Cup to Kickstart Your Day",
     img: mockup1,
     paras: [
-      "Sparsh Nagni Strong Tea is the ultimate choice for those who crave a powerful, invigorating start to their day. Made from the finest tea leaves, it delivers a rich, bold flavour that stands out with every sip — a deep, malty taste and smooth finish that energises you for whatever the day holds.",
-      "Whether you prefer it black or with a touch of milk, Sparsh Nagni promises a satisfying cup that awakens your senses, in the morning or during a long workday.",
+      "Sparsh Naagni Tea is our premium pick for those who crave a powerful, invigorating start to their day. It delivers a rich, bold flavour with a deep, malty taste and smooth finish — without the acidity.",
+      "Enjoy it with milk & sugar, morning or evening, for a full-bodied cup that never feels heavy on your stomach.",
     ],
   },
   {
@@ -89,8 +76,8 @@ const teaDetails = [
     title: "The Perfect Everyday Tea",
     img: mockup2,
     paras: [
-      "Sparsh No.1 Normal Tea is the ideal choice for those who enjoy a smooth, balanced cup every day. With a mild yet flavourful blend, it offers a refreshing taste perfect for a peaceful morning, a quick afternoon break, or a relaxing evening ritual.",
-      "Beyond its delightful taste, it is rich in antioxidants — supporting healthy digestion, improving immunity and providing a gentle energy boost that helps you unwind and rejuvenate.",
+      "Sparsh No.1 Tea is the ideal choice for those who enjoy a smooth, balanced cup every day.",
+      "Perfect for a peaceful morning, a quick afternoon break, or a relaxing evening ritual with milk & sugar.",
     ],
   },
   {
@@ -98,8 +85,17 @@ const teaDetails = [
     title: "A Flavourful Blend of Tradition & Spice",
     img: mockup3,
     paras: [
-      "Sparsh Masala Tea is a delightful fusion of aromatic spices and rich tea. With a perfect blend of cardamom, cinnamon, ginger and other traditional spices, it delivers a comforting, spicy kick in every sip — the authentic taste of Indian chai right in your cup.",
-      "More than delicious, the blend of ginger and cinnamon helps improve digestion, boost metabolism and provide a natural immune boost — perfect for soothing colds or relaxing after a long day.",
+      "Sparsh Masala Tea is a delightful fusion of aromatic spices and rich tea — cardamom, cinnamon, ginger and other traditional spices.",
+      "It delivers a comforting, spicy kick in every sip — the authentic taste of Indian masala chai, right in your cup.",
+    ],
+  },
+  {
+    tag: "Sparsh Premium Orthodox Tea · Specialty",
+    title: "A Refined Everyday Ritual",
+    img: product2,
+    paras: [
+      "Crafted from whole long leaves for a more delicate, layered aroma — a specialty cup for those who want to slow down and savour something a little different.",
+      "Brew gently and add milk & sugar to taste, any time of day.",
     ],
   },
 ];
@@ -118,7 +114,6 @@ const businessHours = [
 ];
 
 export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
-  const [tab, setTab] = useState("New-In");
   const [contactSent, setContactSent] = useState(false);
 
   // When arriving via a clean slug route (e.g. /shop), scroll to that section.
@@ -142,9 +137,10 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
         <div className="max-w-3xl mx-auto text-center">
           <p className="eyebrow text-primary mb-4">about us</p>
           <h2 className="font-heading text-5xl md:text-6xl mb-8 leading-tight">Welcome to<br /><em className="not-italic">Sparsh Tea</em></h2>
-          <p className="text-forest-foreground/85 text-lg leading-relaxed mb-10">
+          <p className="text-forest-foreground/85 text-lg leading-relaxed mb-6">
             We are a family-run tea house founded on a passion for tea. Every leaf of Sparsh is handpicked from lush Indian plantations and blended with a promise: we would never sell a tea we wouldn't happily drink at home.
           </p>
+          <p className="font-heading text-2xl md:text-3xl text-primary mb-10">Sparsh — Made for Moments That Matter.</p>
           <a href="/shop" onClick={(e) => handleNavClick(e, "products", "shop")} className="inline-flex items-center gap-2 border border-forest-foreground/40 text-forest-foreground px-8 py-3.5 rounded-full text-xs uppercase tracking-widest hover:bg-primary hover:text-primary-foreground hover:border-primary transition">
             Learn More <ChevronRight className="w-3.5 h-3.5" />
           </a>
@@ -155,32 +151,22 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
       <section id="shop" className="py-24 px-6">
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-col items-center text-center mb-12">
-            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Shop Our <em className="not-italic">Teas</em></h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">Handpicked blends for every mood and moment — explore our best-loved teas.</p>
-            <div className="flex flex-wrap gap-3 md:gap-8 justify-center">
-              {Object.keys(productsByTab).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTab(t)}
-                  className={`text-sm uppercase tracking-widest pb-2 border-b-2 transition ${tab === t ? "border-primary text-dark" : "border-transparent text-muted-foreground hover:text-dark"}`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
+            <p className="eyebrow mb-3">our teas</p>
+            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Explore the <em className="not-italic">Sparsh</em> Collection</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Six bold blends and one delicate specialty tea — find the strength and flavour that suits your taste.</p>
           </div>
 
-          <div id="products" className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {productsByTab[tab].map((p) => <ProductCard key={p.name + tab} p={p} />)}
+          <div id="products" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {products.map((p) => <ProductCard key={p.name} p={p} />)}
           </div>
 
           {/* Promo band */}
           <div className="mt-16 relative overflow-hidden rounded-sm bg-cream">
             <div className="grid md:grid-cols-2 items-center">
               <div className="p-10 md:p-16">
-                <p className="eyebrow mb-4">popular flavoured tea</p>
-                <h3 className="font-heading text-4xl md:text-5xl text-dark mb-4 leading-tight">Exquisite Taste,<br /><em className="not-italic">Refreshing Blends.</em></h3>
-                <p className="text-muted-foreground mb-8">Popular flavoured teas from the Sparsh house — you must try them.</p>
+                <p className="eyebrow mb-4">timeless blends</p>
+                <h3 className="font-heading text-4xl md:text-5xl text-dark mb-4 leading-tight">Rich Taste,<br /><em className="not-italic">Timeless Blends.</em></h3>
+                <p className="text-muted-foreground mb-8">The most-loved teas from the Sparsh house — six bold blends and one delicate specialty tea, crafted for a truly satisfying cup.</p>
                 <a href="/shop" onClick={(e) => handleNavClick(e, "products", "shop")} className="inline-flex items-center gap-2 text-xs uppercase tracking-widest border-b-2 border-dark text-dark pb-1 hover:border-primary hover:text-primary transition">
                   Discover More <ChevronRight className="w-3.5 h-3.5" />
                 </a>
@@ -197,9 +183,9 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
       <section className="py-24 px-6 bg-cream">
         <div className="max-w-[1400px] mx-auto">
           <div className="text-center mb-16">
-            <p className="eyebrow mb-3">our products</p>
-            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Tea has a complex positive<br /><em className="not-italic">effect on the body</em></h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Each Sparsh blend is crafted to invigorate your senses and uplift your day — a sip of perfection, a touch of nature.</p>
+            <p className="eyebrow mb-3">get to know them</p>
+            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Rich Taste,<br /><em className="not-italic">Timeless Blends</em></h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">A closer look at the blends our customers reach for again and again — always served hot, with milk &amp; sugar to taste.</p>
           </div>
           <div className="space-y-16">
             {teaDetails.map((tea, i) => (
@@ -230,13 +216,13 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
         <div className="max-w-[1400px] mx-auto">
           <div className="flex flex-wrap items-end justify-between mb-12 gap-6">
             <div>
-              <p className="eyebrow mb-3">explore our range</p>
+              <p className="eyebrow mb-3">a range worth exploring</p>
               <h2 className="font-heading text-5xl md:text-6xl text-dark mb-3">Browse by <em className="not-italic">Category</em></h2>
-              <p className="text-muted-foreground text-lg max-w-md">Find your perfect cup — shop teas grouped by type and taste.</p>
+              <p className="text-muted-foreground text-lg max-w-md">From bold blends like Naagni and Masala to the delicate Orthodox long leaf — every Sparsh tea has its own character and aroma.</p>
             </div>
             <a href="/shop" onClick={(e) => handleNavClick(e, "products", "shop")} className="text-xs uppercase tracking-widest border-b-2 border-dark text-dark pb-1 hover:border-primary hover:text-primary transition">View All Products ›</a>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-3 gap-6 max-w-3xl mx-auto">
             {categories.map((c) => (
               <a key={c.name} href="/shop" onClick={(e) => handleNavClick(e, "products", "shop")} className="group text-center">
                 <div className="aspect-square rounded-full overflow-hidden bg-white mb-4 border border-border">
@@ -285,9 +271,9 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
             </div>
           </div>
           <div>
-            <p className="eyebrow mb-4">why we're great</p>
-            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-6 leading-tight">Crafted by<br /><em className="not-italic">Leading Tea Experts</em></h2>
-            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">Our ingredients represent less than 1% of all teas available worldwide. Our diverse, subtle flavours are the result of blending without compromise.</p>
+            <p className="eyebrow mb-4">quality you can trust</p>
+            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-6 leading-tight">Quality You<br /><em className="not-italic">Can Trust</em></h2>
+            <p className="text-muted-foreground text-lg mb-10 leading-relaxed">Every cup of Sparsh is built on a simple promise — real quality you can taste and trust, blend after blend.</p>
             <div className="grid sm:grid-cols-2 gap-8">
               {features.map((f) => (
                 <div key={f.title}>
@@ -319,8 +305,8 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
         <div className="max-w-[1400px] mx-auto px-6">
           <div className="text-center mb-14">
             <p className="eyebrow mb-3">testimonials</p>
-            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Customer <em className="not-italic">Reviews</em></h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">What our clients say about our tea — real words from a family of tea lovers across India.</p>
+            <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Loved by <em className="not-italic">Tea Lovers</em></h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Real words from a family of tea lovers across India.</p>
           </div>
         </div>
         <div className="marquee">
@@ -338,6 +324,12 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
               </div>
             ))}
           </div>
+        </div>
+        <div className="text-center mt-12">
+          <p className="text-muted-foreground mb-4">Tried a Sparsh tea? We'd love to hear from you.</p>
+          <a href="/contact" onClick={(e) => handleNavClick(e, "contact", "contact")} className="inline-flex items-center gap-2 border border-dark text-dark px-8 py-3.5 rounded-full text-xs uppercase tracking-widest hover:bg-primary hover:text-primary-foreground hover:border-primary transition">
+            Write a Review <ChevronRight className="w-3.5 h-3.5" />
+          </a>
         </div>
       </section>
 
@@ -415,6 +407,48 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
                 </ul>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Need help choosing — WhatsApp */}
+      <section className="px-6 pb-8">
+        <div className="max-w-[1400px] mx-auto bg-forest text-forest-foreground leaf-bg rounded-sm px-8 py-12 md:px-16 text-center">
+          <p className="eyebrow text-primary mb-3">need help choosing your tea?</p>
+          <h2 className="font-heading text-4xl md:text-5xl mb-4 leading-tight">Not sure which Sparsh is right for you?</h2>
+          <p className="text-forest-foreground/85 text-lg max-w-2xl mx-auto mb-8">Our team is happy to help you choose based on your preferred strength and taste.</p>
+          <a
+            href="https://wa.me/919814721027?text=Hi%20Sparsh%2C%20please%20help%20me%20choose%20a%20tea"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2.5 bg-primary text-primary-foreground px-8 py-4 rounded-full text-sm uppercase tracking-widest hover:bg-white hover:text-dark transition"
+          >
+            <MessageCircle className="w-5 h-5" /> Chat with Sparsh on WhatsApp
+          </a>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="eyebrow mb-3">faq</p>
+            <h2 className="font-heading text-5xl md:text-6xl text-dark">Common <em className="not-italic">Questions</em></h2>
+          </div>
+          <div className="space-y-4">
+            {[
+              { q: "What type of tea does Sparsh offer?", a: "Premium CTC teas — Naagni, Royal, No.1, Gold, Masala, and Elaichi — along with one Orthodox long-leaf tea, Sparsh Premium Orthodox." },
+              { q: "How do I prepare Sparsh Tea?", a: "Boil fresh water, add the recommended quantity of tea, let it brew, and add milk & sugar to taste." },
+              { q: "How should I store my tea?", a: "Keep it in a cool, dry place, away from direct sunlight, moisture, and strong smells." },
+            ].map((f) => (
+              <details key={f.q} className="group bg-cream rounded-sm border border-border/60 px-6 py-5">
+                <summary className="flex items-center justify-between gap-4 cursor-pointer list-none font-heading text-xl text-dark">
+                  {f.q}
+                  <span className="text-primary text-2xl leading-none flex-shrink-0 transition-transform duration-300 group-open:rotate-45">+</span>
+                </summary>
+                <p className="text-muted-foreground leading-relaxed mt-4">{f.a}</p>
+              </details>
+            ))}
           </div>
         </div>
       </section>
