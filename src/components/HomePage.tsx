@@ -23,22 +23,38 @@ import t1 from "@/assets/sparsh/testimonial-1.jpg";
 import t2 from "@/assets/sparsh/testimonial-2.jpg";
 import t3 from "@/assets/sparsh/testimonial-3.jpg";
 
+import naagni1 from "@/assets/sparsh/products/naagni-1.jpg";
+import naagni2 from "@/assets/sparsh/products/naagni-2.jpg";
+import gold1 from "@/assets/sparsh/products/gold-1.jpg";
+import gold2 from "@/assets/sparsh/products/gold-2.jpg";
+import masala1 from "@/assets/sparsh/products/masala-1.jpg";
+import masala2 from "@/assets/sparsh/products/masala-2.jpg";
+import elaichi1 from "@/assets/sparsh/products/elaichi-1.jpg";
+import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
+import no11 from "@/assets/sparsh/products/no1-1.jpg";
+import no12 from "@/assets/sparsh/products/no1-2.jpg";
+import qualityImg from "@/assets/sparsh/quality-you-can-trust.png";
+import timelessImg from "@/assets/sparsh/timeless-blends.png";
+import catCtc from "@/assets/sparsh/categories/ctc-tea.jpg";
+import catOrthodox from "@/assets/sparsh/categories/orthodox-tea.jpg";
+import catGift from "@/assets/sparsh/categories/gift-packs.jpg";
+
 type Product = { name: string; price: string; img: string; hover: string; tag?: string; rating: number };
 
 const products: Product[] = [
-  { name: "Sparsh Naagni Tea", price: "Premium · Strong", img: mockup1, hover: product1, tag: "New", rating: 4.9 },
+  { name: "Sparsh Naagni Tea", price: "Premium · Strong", img: naagni1, hover: naagni2, tag: "New", rating: 4.9 },
   { name: "Sparsh Royal Tea", price: "Rich & Premium", img: product4, hover: mockup2, tag: "New", rating: 4.8 },
-  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", img: mockup2, hover: product2, tag: "Popular", rating: 4.7 },
-  { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: product1, hover: mockup1, tag: "Everyday", rating: 4.6 },
-  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: mockup3, hover: product3, tag: "Spiced", rating: 4.9 },
-  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: product3, hover: mockup3, tag: "Aromatic", rating: 4.8 },
+  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", img: no11, hover: no12, tag: "Popular", rating: 4.7 },
+  { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: gold1, hover: gold2, tag: "Everyday", rating: 4.6 },
+  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: masala1, hover: masala2, tag: "Spiced", rating: 4.9 },
+  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: elaichi1, hover: elaichi2, tag: "Aromatic", rating: 4.8 },
   { name: "Sparsh Premium Orthodox Tea", price: "Delicate Long-Leaf", img: product2, hover: product4, tag: "Specialty", rating: 4.7 },
 ];
 
 const categories = [
-  { name: "CTC Tea", img: mockup1, count: 6 },
-  { name: "Orthodox Tea", img: about3, count: 1 },
-  { name: "Gift Packs", img: product4, count: 3 },
+  { name: "CTC Tea", img: catCtc, count: 6 },
+  { name: "Orthodox Tea", img: catOrthodox, count: 1 },
+  { name: "Gift Packs", img: catGift, count: 3 },
 ];
 
 const features = [
@@ -65,7 +81,7 @@ const teaDetails = [
   {
     tag: "Sparsh Naagni Tea · Premium",
     title: "A Bold Cup to Kickstart Your Day",
-    img: mockup1,
+    img: naagni1,
     paras: [
       "Sparsh Naagni Tea is our premium pick for those who crave a powerful, invigorating start to their day. It delivers a rich, bold flavour with a deep, malty taste and smooth finish — without the acidity.",
       "Enjoy it with milk & sugar, morning or evening, for a full-bodied cup that never feels heavy on your stomach.",
@@ -74,7 +90,7 @@ const teaDetails = [
   {
     tag: "Sparsh No.1 Tea",
     title: "The Perfect Everyday Tea",
-    img: mockup2,
+    img: no11,
     paras: [
       "Sparsh No.1 Tea is the ideal choice for those who enjoy a smooth, balanced cup every day.",
       "Perfect for a peaceful morning, a quick afternoon break, or a relaxing evening ritual with milk & sugar.",
@@ -83,7 +99,7 @@ const teaDetails = [
   {
     tag: "Sparsh Masala Tea",
     title: "A Flavourful Blend of Tradition & Spice",
-    img: mockup3,
+    img: masala1,
     paras: [
       "Sparsh Masala Tea is a delightful fusion of aromatic spices and rich tea — cardamom, cinnamon, ginger and other traditional spices.",
       "It delivers a comforting, spicy kick in every sip — the authentic taste of Indian masala chai, right in your cup.",
@@ -172,7 +188,7 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
                 </a>
               </div>
               <div className="relative h-80 md:h-96">
-                <img src={article} alt="Sparsh Tea" className="absolute inset-0 w-full h-full object-cover" />
+                <img src={timelessImg} alt="Fresh Sparsh tea leaves" className="absolute inset-0 w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -264,7 +280,7 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
       <section className="py-24 px-6 relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <img src={about2} alt="Tea plantation" className="w-full aspect-[4/5] object-cover rounded-sm" />
+            <img src={qualityImg} alt="A freshly brewed cup of Sparsh masala chai with tea leaves and spices" className="w-full aspect-[4/5] object-cover rounded-sm" />
             <div className="absolute -bottom-6 -right-6 md:bottom-8 md:right-8 bg-primary text-primary-foreground px-8 py-6 rounded-full font-heading">
               <div className="text-4xl leading-none">100%</div>
               <div className="text-xs uppercase tracking-widest mt-1">Natural Leaf</div>

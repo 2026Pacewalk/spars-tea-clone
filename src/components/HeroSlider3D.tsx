@@ -2,14 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { handleNavClick } from "@/lib/scroll";
 
-import banner1 from "@/assets/sparsh/banners/banner-1.jpg";
-import banner2 from "@/assets/sparsh/banners/banner-2.jpg";
-import banner3 from "@/assets/sparsh/banners/banner-3.jpg";
-import banner4 from "@/assets/sparsh/banners/banner-4.jpg";
-import banner5 from "@/assets/sparsh/banners/banner-5.jpg";
-import banner6 from "@/assets/sparsh/banners/banner-6.jpg";
+import bannerNaagni from "@/assets/sparsh/banners/hero-naagni.jpg";
+import bannerNo1 from "@/assets/sparsh/banners/hero-no1.jpg";
+import bannerMasala from "@/assets/sparsh/banners/hero-masala.jpg";
+import bannerGold from "@/assets/sparsh/banners/hero-gold.jpg";
+import bannerElaichi from "@/assets/sparsh/banners/hero-elaichi.jpg";
 
-const banners = [banner1, banner2, banner3, banner4, banner5, banner6];
+const banners = [bannerNaagni, bannerNo1, bannerMasala, bannerGold, bannerElaichi];
 const AUTOPLAY_MS = 6000;
 
 export default function HeroSlider3D() {
@@ -44,11 +43,10 @@ export default function HeroSlider3D() {
       onMouseEnter={() => setPausedBoth(true)}
       onMouseLeave={() => setPausedBoth(false)}
     >
-      {/* Banner stage — full source ratio on mobile; on desktop it fits the
-          viewport height (below the 118px header) so the whole banner is visible
-          without scrolling. object-contain keeps the art uncropped. */}
+      {/* Banner stage — matches the source art ratio (6069x2528) exactly, so the
+          full banner shows at every width with no cropping. */}
       <div
-        className="relative w-full aspect-[1672/941] lg:aspect-auto lg:h-[calc(100vh-118px)]"
+        className="relative w-full aspect-[6069/2528]"
         onTouchStart={(e) => onTouchStart(e.touches[0].clientX)}
         onTouchEnd={(e) => onTouchEnd(e.changedTouches[0].clientX)}
       >
@@ -63,20 +61,12 @@ export default function HeroSlider3D() {
               tabIndex={isActive ? 0 : -1}
               className={`absolute inset-0 transition-opacity duration-[900ms] ease-out ${isActive ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"}`}
             >
-              {/* Blurred fill so the letterbox areas on wide screens look intentional */}
-              <img
-                src={b}
-                alt=""
-                aria-hidden="true"
-                draggable={false}
-                className="absolute inset-0 w-full h-full object-cover blur-2xl scale-110 opacity-50"
-              />
               <img
                 src={b}
                 alt={`Sparsh Tea banner ${idx + 1}`}
                 draggable={false}
                 loading={idx === 0 ? "eager" : "lazy"}
-                className="relative z-10 w-full h-full object-contain"
+                className="w-full h-full object-cover"
               />
             </a>
           );
