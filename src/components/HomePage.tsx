@@ -207,8 +207,8 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
             {teaDetails.map((tea, i) => (
               <div key={tea.tag} className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${i % 2 === 1 ? "lg:[&>*:first-child]:order-2" : ""}`}>
                 <div className="relative">
-                  <div className="aspect-[4/3] overflow-hidden rounded-sm bg-white border border-border">
-                    <img src={tea.img} alt={tea.title} className="w-full h-full object-contain p-8" />
+                  <div className="aspect-[4/3] overflow-hidden rounded-sm bg-cream">
+                    <img src={tea.img} alt={tea.title} className="w-full h-full object-contain" />
                   </div>
                 </div>
                 <div>
