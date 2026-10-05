@@ -29,6 +29,7 @@ import masala1 from "@/assets/sparsh/products/masala-1.jpg";
 import masalaLifestyle from "@/assets/sparsh/products/masala-lifestyle.jpg";
 import elaichiLifestyle from "@/assets/sparsh/products/elaichi-lifestyle.jpg";
 import goldLifestyle from "@/assets/sparsh/products/gold-lifestyle.jpg";
+import royalLifestyle from "@/assets/sparsh/products/royal-lifestyle.jpg";
 import masala2 from "@/assets/sparsh/products/masala-2.jpg";
 import elaichi1 from "@/assets/sparsh/products/elaichi-1.jpg";
 import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
@@ -121,6 +122,15 @@ const teaDetails = [
     paras: [
       "Sparsh Gold Tea is crafted for those who appreciate a rich, smooth and refreshing cup of tea.",
       "Its carefully selected blend delivers a full-bodied flavour and inviting aroma with every sip.",
+    ],
+  },
+  {
+    tag: "Sparsh Royal Tea · Premium",
+    title: "A Rich & Royal Cup of Assam Tea",
+    img: royalLifestyle,
+    paras: [
+      "Sparsh Royal Tea is a premium Assam loose tea crafted for those who appreciate a rich, satisfying cup with a naturally sweet taste.",
+      "Perfect for a peaceful morning, a refreshing afternoon break, or those special tea moments when you want to enjoy something truly premium.",
     ],
   },
 ];
