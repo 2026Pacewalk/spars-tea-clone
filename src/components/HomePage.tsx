@@ -30,6 +30,8 @@ import masalaLifestyle from "@/assets/sparsh/products/masala-lifestyle.jpg";
 import elaichiLifestyle from "@/assets/sparsh/products/elaichi-lifestyle.jpg";
 import goldLifestyle from "@/assets/sparsh/products/gold-lifestyle.jpg";
 import royalLifestyle from "@/assets/sparsh/products/royal-lifestyle.jpg";
+import royal1 from "@/assets/sparsh/products/royal-1.jpg";
+import royal2 from "@/assets/sparsh/products/royal-2.jpg";
 import masala2 from "@/assets/sparsh/products/masala-2.jpg";
 import elaichi1 from "@/assets/sparsh/products/elaichi-1.jpg";
 import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
@@ -50,6 +52,7 @@ const products: Product[] = [
   { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: gold1, hover: gold2, tag: "Everyday", rating: 4.6 },
   { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: masala1, hover: masala2, tag: "Spiced", rating: 4.9 },
   { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: elaichi1, hover: elaichi2, tag: "Aromatic", rating: 4.8 },
+  { name: "Sparsh Royal Tea", price: "Rich & Premium", img: royal1, hover: royal2, tag: "Premium", rating: 4.8 },
 ];
 
 const categories = [
@@ -188,7 +191,7 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
           <div className="flex flex-col items-center text-center mb-12">
             <p className="eyebrow mb-3">our teas</p>
             <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Explore the <em className="not-italic">Sparsh</em> Collection</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Five bold blends — find the strength and flavour that suits your taste.</p>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Six bold blends — find the strength and flavour that suits your taste.</p>
           </div>
 
           <div id="products" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
