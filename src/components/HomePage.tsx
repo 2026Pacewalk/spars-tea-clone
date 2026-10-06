@@ -38,21 +38,27 @@ import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
 import no11 from "@/assets/sparsh/products/no1-1.jpg";
 import no1Lifestyle from "@/assets/sparsh/products/no1-lifestyle.jpg";
 import no12 from "@/assets/sparsh/products/no1-2.jpg";
+import naagni3 from "@/assets/sparsh/products/naagni-3.jpg";
+import no13 from "@/assets/sparsh/products/no1-3.jpg";
+import gold3 from "@/assets/sparsh/products/gold-3.jpg";
+import masala3 from "@/assets/sparsh/products/masala-3.jpg";
+import elaichi3 from "@/assets/sparsh/products/elaichi-3.jpg";
+import royal3 from "@/assets/sparsh/products/royal-3.jpg";
 import qualityImg from "@/assets/sparsh/quality-you-can-trust.png";
 import timelessImg from "@/assets/sparsh/timeless-blends.png";
 import catCtc from "@/assets/sparsh/categories/ctc-tea.jpg";
 import catOrthodox from "@/assets/sparsh/categories/orthodox-tea.jpg";
 import catGift from "@/assets/sparsh/categories/gift-packs.jpg";
 
-type Product = { name: string; price: string; img: string; hover: string; tag?: string; rating: number };
+type Product = { name: string; price: string; imgs: string[]; tag?: string; rating: number };
 
 const products: Product[] = [
-  { name: "Sparsh Naagni Tea", price: "Premium · Strong", img: naagni1, hover: naagni2, tag: "New", rating: 4.9 },
-  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", img: no11, hover: no12, tag: "Popular", rating: 4.7 },
-  { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: gold1, hover: gold2, tag: "Everyday", rating: 4.6 },
-  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: masala1, hover: masala2, tag: "Spiced", rating: 4.9 },
-  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: elaichi1, hover: elaichi2, tag: "Aromatic", rating: 4.8 },
-  { name: "Sparsh Royal Tea", price: "Rich & Premium", img: royal1, hover: royal2, tag: "Premium", rating: 4.8 },
+  { name: "Sparsh Naagni Tea", price: "Premium · Strong", imgs: [naagni1, naagni2, naagni3], tag: "New", rating: 4.9 },
+  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", imgs: [no11, no12, no13], tag: "Popular", rating: 4.7 },
+  { name: "Sparsh Gold Tea", price: "Naturally Sweet", imgs: [gold1, gold2, gold3], tag: "Everyday", rating: 4.6 },
+  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", imgs: [masala1, masala2, masala3], tag: "Spiced", rating: 4.9 },
+  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", imgs: [elaichi1, elaichi2, elaichi3], tag: "Aromatic", rating: 4.8 },
+  { name: "Sparsh Royal Tea", price: "Rich & Premium", imgs: [royal1, royal2, royal3], tag: "Premium", rating: 4.8 },
 ];
 
 const categories = [
@@ -497,11 +503,37 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
 }
 
 function ProductCard({ p }: { p: Product }) {
+  const [slide, setSlide] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const n = p.imgs.length;
+
+  // While hovered, step through the remaining slides; reset to the pack shot on leave.
+  useEffect(() => {
+    if (!hovered) return;
+    setSlide(1 % n);
+    const t = setInterval(() => setSlide((s) => (s + 1) % n), 1200);
+    return () => { clearInterval(t); setSlide(0); };
+  }, [hovered, n]);
+
   return (
-    <div className="group text-center">
+    <div className="group text-center" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <div className="relative overflow-hidden bg-cream aspect-square mb-4">
-        <img src={p.img} alt={p.name} className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
-        <img src={p.hover} alt="" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {p.imgs.map((src, idx) => (
+          <img
+            key={idx}
+            src={src}
+            alt={idx === 0 ? p.name : ""}
+            loading={idx === 0 ? undefined : "lazy"}
+            className={`${idx === 0 ? "" : "absolute inset-0"} w-full h-full object-cover transition-opacity duration-500 ${slide === idx ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+        <div className="absolute bottom-1 group-hover:bottom-10 inset-x-0 z-10 flex justify-center transition-all duration-300">
+          {p.imgs.map((_, idx) => (
+            <button key={idx} onClick={() => setSlide(idx)} aria-label={`Show ${p.name} image ${idx + 1}`} className="p-2">
+              <span className={`block h-1.5 rounded-full transition-all duration-300 ${slide === idx ? "w-5 bg-primary" : "w-1.5 bg-dark/30"}`} />
+            </button>
+          ))}
+        </div>
         {p.tag && (
           <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] uppercase tracking-widest px-3 py-1 rounded-full">{p.tag}</span>
         )}
