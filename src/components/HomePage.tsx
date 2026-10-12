@@ -20,46 +20,19 @@ import t1 from "@/assets/sparsh/testimonial-1.jpg";
 import t2 from "@/assets/sparsh/testimonial-2.jpg";
 import t3 from "@/assets/sparsh/testimonial-3.jpg";
 
-import naagni1 from "@/assets/sparsh/products/naagni-1.jpg";
 import naagniLifestyle from "@/assets/sparsh/products/naagni-lifestyle.jpg";
-import naagni2 from "@/assets/sparsh/products/naagni-2.jpg";
-import gold1 from "@/assets/sparsh/products/gold-1.jpg";
-import gold2 from "@/assets/sparsh/products/gold-2.jpg";
-import masala1 from "@/assets/sparsh/products/masala-1.jpg";
 import masalaLifestyle from "@/assets/sparsh/products/masala-lifestyle.jpg";
 import elaichiLifestyle from "@/assets/sparsh/products/elaichi-lifestyle.jpg";
 import goldLifestyle from "@/assets/sparsh/products/gold-lifestyle.jpg";
 import royalLifestyle from "@/assets/sparsh/products/royal-lifestyle.jpg";
-import royal1 from "@/assets/sparsh/products/royal-1.jpg";
-import royal2 from "@/assets/sparsh/products/royal-2.jpg";
-import masala2 from "@/assets/sparsh/products/masala-2.jpg";
-import elaichi1 from "@/assets/sparsh/products/elaichi-1.jpg";
-import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
-import no11 from "@/assets/sparsh/products/no1-1.jpg";
 import no1Lifestyle from "@/assets/sparsh/products/no1-lifestyle.jpg";
-import no12 from "@/assets/sparsh/products/no1-2.jpg";
-import naagni3 from "@/assets/sparsh/products/naagni-3.jpg";
-import no13 from "@/assets/sparsh/products/no1-3.jpg";
-import gold3 from "@/assets/sparsh/products/gold-3.jpg";
-import masala3 from "@/assets/sparsh/products/masala-3.jpg";
-import elaichi3 from "@/assets/sparsh/products/elaichi-3.jpg";
-import royal3 from "@/assets/sparsh/products/royal-3.jpg";
 import qualityImg from "@/assets/sparsh/quality-you-can-trust.png";
 import timelessImg from "@/assets/sparsh/timeless-blends.png";
 import catCtc from "@/assets/sparsh/categories/ctc-tea.jpg";
 import catOrthodox from "@/assets/sparsh/categories/orthodox-tea.jpg";
 import catGift from "@/assets/sparsh/categories/gift-packs.jpg";
 
-type Product = { name: string; price: string; imgs: string[]; tag?: string; rating: number };
-
-const products: Product[] = [
-  { name: "Sparsh Naagni Tea", price: "Premium · Strong", imgs: [naagni1, naagni2, naagni3], tag: "New", rating: 4.9 },
-  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", imgs: [no11, no12, no13], tag: "Popular", rating: 4.7 },
-  { name: "Sparsh Gold Tea", price: "Naturally Sweet", imgs: [gold1, gold2, gold3], tag: "Everyday", rating: 4.6 },
-  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", imgs: [masala1, masala2, masala3], tag: "Spiced", rating: 4.9 },
-  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", imgs: [elaichi1, elaichi2, elaichi3], tag: "Aromatic", rating: 4.8 },
-  { name: "Sparsh Royal Tea", price: "Rich & Premium", imgs: [royal1, royal2, royal3], tag: "Premium", rating: 4.8 },
-];
+import { products, productCardId, type Product } from "@/lib/products";
 
 const categories = [
   { name: "CTC Tea", img: catCtc, count: 6 },
@@ -516,7 +489,7 @@ function ProductCard({ p }: { p: Product }) {
   }, [hovered, n]);
 
   return (
-    <div className="group text-center" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+    <div id={productCardId(p.id)} className="group text-center scroll-mt-28 rounded-sm transition-shadow duration-500" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <div className="relative overflow-hidden bg-cream aspect-square mb-4">
         {p.imgs.map((src, idx) => (
           <img
