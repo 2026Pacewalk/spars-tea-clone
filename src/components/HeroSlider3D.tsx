@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { handleNavClick } from "@/lib/scroll";
 
+import bannerRange from "@/assets/sparsh/banners/hero-range.jpg";
 import bannerRoyal from "@/assets/sparsh/banners/hero-royal.jpg";
 import bannerNaagni from "@/assets/sparsh/banners/hero-naagni.jpg";
 import bannerNo1 from "@/assets/sparsh/banners/hero-no1.jpg";
@@ -9,7 +10,7 @@ import bannerMasala from "@/assets/sparsh/banners/hero-masala.jpg";
 import bannerGold from "@/assets/sparsh/banners/hero-gold.jpg";
 import bannerElaichi from "@/assets/sparsh/banners/hero-elaichi.jpg";
 
-const banners = [bannerRoyal, bannerNaagni, bannerNo1, bannerMasala, bannerGold, bannerElaichi];
+const banners = [bannerRange, bannerRoyal, bannerNaagni, bannerNo1, bannerMasala, bannerGold, bannerElaichi];
 const AUTOPLAY_MS = 6000;
 
 export default function HeroSlider3D() {
