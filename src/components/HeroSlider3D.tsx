@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { handleNavClick } from "@/lib/scroll";
 
+import bannerRange from "@/assets/sparsh/banners/hero-range.jpg";
+import bannerRoyal from "@/assets/sparsh/banners/hero-royal.jpg";
 import bannerNaagni from "@/assets/sparsh/banners/hero-naagni.jpg";
 import bannerNo1 from "@/assets/sparsh/banners/hero-no1.jpg";
 import bannerMasala from "@/assets/sparsh/banners/hero-masala.jpg";
 import bannerGold from "@/assets/sparsh/banners/hero-gold.jpg";
 import bannerElaichi from "@/assets/sparsh/banners/hero-elaichi.jpg";
 
-const banners = [bannerNaagni, bannerNo1, bannerMasala, bannerGold, bannerElaichi];
+const banners = [bannerRange, bannerRoyal, bannerNaagni, bannerNo1, bannerMasala, bannerGold, bannerElaichi];
 const AUTOPLAY_MS = 6000;
 
 export default function HeroSlider3D() {
@@ -43,10 +45,11 @@ export default function HeroSlider3D() {
       onMouseEnter={() => setPausedBoth(true)}
       onMouseLeave={() => setPausedBoth(false)}
     >
-      {/* Banner stage — matches the source art ratio (6069x2528) exactly, so the
-          full banner shows at every width with no cropping. */}
+      {/* Banner stage — from md up it matches the source art ratio (6069x2528), so the
+          full banner shows with no cropping. On phones it is taller (2:1) and trims
+          only the empty side margins, keeping the headline and pack in view. */}
       <div
-        className="relative w-full aspect-[6069/2528]"
+        className="relative w-full aspect-[2/1] md:aspect-[6069/2528]"
         onTouchStart={(e) => onTouchStart(e.touches[0].clientX)}
         onTouchEnd={(e) => onTouchEnd(e.changedTouches[0].clientX)}
       >
@@ -66,7 +69,7 @@ export default function HeroSlider3D() {
                 alt={`Sparsh Tea banner ${idx + 1}`}
                 draggable={false}
                 loading={idx === 0 ? "eager" : "lazy"}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[27%_50%] md:object-center"
               />
             </a>
           );

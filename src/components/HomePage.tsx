@@ -12,44 +12,27 @@ import about4 from "@/assets/sparsh/about-4.jpg";
 import about5 from "@/assets/sparsh/about-5.jpg";
 import about6 from "@/assets/sparsh/about-6.jpg";
 import mockup1 from "@/assets/sparsh/Sparsh-Mockup.png";
-import mockup2 from "@/assets/sparsh/Sparsh-Mockup-2.png";
 import mockup3 from "@/assets/sparsh/Sparsh-Mockup-3.png";
 import article from "@/assets/sparsh/article.jpg";
 import product1 from "@/assets/sparsh/product-1.jpg";
-import product2 from "@/assets/sparsh/product-2.jpg";
 import product3 from "@/assets/sparsh/product-3.jpg";
-import product4 from "@/assets/sparsh/product-4.jpg";
 import t1 from "@/assets/sparsh/testimonial-1.jpg";
 import t2 from "@/assets/sparsh/testimonial-2.jpg";
 import t3 from "@/assets/sparsh/testimonial-3.jpg";
 
-import naagni1 from "@/assets/sparsh/products/naagni-1.jpg";
-import naagni2 from "@/assets/sparsh/products/naagni-2.jpg";
-import gold1 from "@/assets/sparsh/products/gold-1.jpg";
-import gold2 from "@/assets/sparsh/products/gold-2.jpg";
-import masala1 from "@/assets/sparsh/products/masala-1.jpg";
-import masala2 from "@/assets/sparsh/products/masala-2.jpg";
-import elaichi1 from "@/assets/sparsh/products/elaichi-1.jpg";
-import elaichi2 from "@/assets/sparsh/products/elaichi-2.jpg";
-import no11 from "@/assets/sparsh/products/no1-1.jpg";
-import no12 from "@/assets/sparsh/products/no1-2.jpg";
+import naagniLifestyle from "@/assets/sparsh/products/naagni-lifestyle.jpg";
+import masalaLifestyle from "@/assets/sparsh/products/masala-lifestyle.jpg";
+import elaichiLifestyle from "@/assets/sparsh/products/elaichi-lifestyle.jpg";
+import goldLifestyle from "@/assets/sparsh/products/gold-lifestyle.jpg";
+import royalLifestyle from "@/assets/sparsh/products/royal-lifestyle.jpg";
+import no1Lifestyle from "@/assets/sparsh/products/no1-lifestyle.jpg";
 import qualityImg from "@/assets/sparsh/quality-you-can-trust.png";
 import timelessImg from "@/assets/sparsh/timeless-blends.png";
 import catCtc from "@/assets/sparsh/categories/ctc-tea.jpg";
 import catOrthodox from "@/assets/sparsh/categories/orthodox-tea.jpg";
 import catGift from "@/assets/sparsh/categories/gift-packs.jpg";
 
-type Product = { name: string; price: string; img: string; hover: string; tag?: string; rating: number };
-
-const products: Product[] = [
-  { name: "Sparsh Naagni Tea", price: "Premium · Strong", img: naagni1, hover: naagni2, tag: "New", rating: 4.9 },
-  { name: "Sparsh Royal Tea", price: "Rich & Premium", img: product4, hover: mockup2, tag: "New", rating: 4.8 },
-  { name: "Sparsh No.1 Tea", price: "Smooth · Everyday", img: no11, hover: no12, tag: "Popular", rating: 4.7 },
-  { name: "Sparsh Gold Tea", price: "Naturally Sweet", img: gold1, hover: gold2, tag: "Everyday", rating: 4.6 },
-  { name: "Sparsh Masala Tea", price: "Spiced Masala Chai", img: masala1, hover: masala2, tag: "Spiced", rating: 4.9 },
-  { name: "Sparsh Elaichi Tea", price: "Cardamom Aromatic", img: elaichi1, hover: elaichi2, tag: "Aromatic", rating: 4.8 },
-  { name: "Sparsh Premium Orthodox Tea", price: "Delicate Long-Leaf", img: product2, hover: product4, tag: "Specialty", rating: 4.7 },
-];
+import { products, productCardId, type Product } from "@/lib/products";
 
 const categories = [
   { name: "CTC Tea", img: catCtc, count: 6 },
@@ -81,7 +64,7 @@ const teaDetails = [
   {
     tag: "Sparsh Naagni Tea · Premium",
     title: "A Bold Cup to Kickstart Your Day",
-    img: naagni1,
+    img: naagniLifestyle,
     paras: [
       "Sparsh Naagni Tea is our premium pick for those who crave a powerful, invigorating start to their day. It delivers a rich, bold flavour with a deep, malty taste and smooth finish — without the acidity.",
       "Enjoy it with milk & sugar, morning or evening, for a full-bodied cup that never feels heavy on your stomach.",
@@ -90,7 +73,7 @@ const teaDetails = [
   {
     tag: "Sparsh No.1 Tea",
     title: "The Perfect Everyday Tea",
-    img: no11,
+    img: no1Lifestyle,
     paras: [
       "Sparsh No.1 Tea is the ideal choice for those who enjoy a smooth, balanced cup every day.",
       "Perfect for a peaceful morning, a quick afternoon break, or a relaxing evening ritual with milk & sugar.",
@@ -99,19 +82,37 @@ const teaDetails = [
   {
     tag: "Sparsh Masala Tea",
     title: "A Flavourful Blend of Tradition & Spice",
-    img: masala1,
+    img: masalaLifestyle,
     paras: [
       "Sparsh Masala Tea is a delightful fusion of aromatic spices and rich tea — cardamom, cinnamon, ginger and other traditional spices.",
       "It delivers a comforting, spicy kick in every sip — the authentic taste of Indian masala chai, right in your cup.",
     ],
   },
   {
-    tag: "Sparsh Premium Orthodox Tea · Specialty",
-    title: "A Refined Everyday Ritual",
-    img: product2,
+    tag: "Sparsh Elaichi Tea",
+    title: "The Perfect Blend of Tea & Cardamom",
+    img: elaichiLifestyle,
     paras: [
-      "Crafted from whole long leaves for a more delicate, layered aroma — a specialty cup for those who want to slow down and savour something a little different.",
-      "Brew gently and add milk & sugar to taste, any time of day.",
+      "Sparsh Elaichi Tea brings together the richness of fine tea and the naturally aromatic taste of cardamom for a refreshing cup full of flavour.",
+      "Perfect for a soothing morning, a relaxing afternoon break, or those special tea moments when you want something wonderfully fragrant and flavourful.",
+    ],
+  },
+  {
+    tag: "Sparsh Gold Tea · Premium",
+    title: "A Rich & Refined Cup for Every Occasion",
+    img: goldLifestyle,
+    paras: [
+      "Sparsh Gold Tea is crafted for those who appreciate a rich, smooth and refreshing cup of tea.",
+      "Its carefully selected blend delivers a full-bodied flavour and inviting aroma with every sip.",
+    ],
+  },
+  {
+    tag: "Sparsh Royal Tea · Premium",
+    title: "A Rich & Royal Cup of Assam Tea",
+    img: royalLifestyle,
+    paras: [
+      "Sparsh Royal Tea is a premium Assam loose tea crafted for those who appreciate a rich, satisfying cup with a naturally sweet taste.",
+      "Perfect for a peaceful morning, a refreshing afternoon break, or those special tea moments when you want to enjoy something truly premium.",
     ],
   },
 ];
@@ -169,7 +170,7 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
           <div className="flex flex-col items-center text-center mb-12">
             <p className="eyebrow mb-3">our teas</p>
             <h2 className="font-heading text-5xl md:text-6xl text-dark mb-4">Explore the <em className="not-italic">Sparsh</em> Collection</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Six bold blends and one delicate specialty tea — find the strength and flavour that suits your taste.</p>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Six bold blends — find the strength and flavour that suits your taste.</p>
           </div>
 
           <div id="products" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -475,11 +476,37 @@ export default function HomePage({ scrollTo }: { scrollTo?: string } = {}) {
 }
 
 function ProductCard({ p }: { p: Product }) {
+  const [slide, setSlide] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const n = p.imgs.length;
+
+  // While hovered, step through the remaining slides; reset to the pack shot on leave.
+  useEffect(() => {
+    if (!hovered) return;
+    setSlide(1 % n);
+    const t = setInterval(() => setSlide((s) => (s + 1) % n), 1200);
+    return () => { clearInterval(t); setSlide(0); };
+  }, [hovered, n]);
+
   return (
-    <div className="group text-center">
+    <div id={productCardId(p.id)} className="group text-center scroll-mt-28 rounded-sm transition-shadow duration-500" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <div className="relative overflow-hidden bg-cream aspect-square mb-4">
-        <img src={p.img} alt={p.name} className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0" />
-        <img src={p.hover} alt="" className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        {p.imgs.map((src, idx) => (
+          <img
+            key={idx}
+            src={src}
+            alt={idx === 0 ? p.name : ""}
+            loading={idx === 0 ? undefined : "lazy"}
+            className={`${idx === 0 ? "" : "absolute inset-0"} w-full h-full object-cover transition-opacity duration-500 ${slide === idx ? "opacity-100" : "opacity-0"}`}
+          />
+        ))}
+        <div className="absolute bottom-1 group-hover:bottom-10 inset-x-0 z-10 flex justify-center transition-all duration-300">
+          {p.imgs.map((_, idx) => (
+            <button key={idx} onClick={() => setSlide(idx)} aria-label={`Show ${p.name} image ${idx + 1}`} className="p-2">
+              <span className={`block h-1.5 rounded-full transition-all duration-300 ${slide === idx ? "w-5 bg-primary" : "w-1.5 bg-dark/30"}`} />
+            </button>
+          ))}
+        </div>
         {p.tag && (
           <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] uppercase tracking-widest px-3 py-1 rounded-full">{p.tag}</span>
         )}

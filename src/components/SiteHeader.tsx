@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, User, Heart, ShoppingBag, ChevronRight, Menu, X, Leaf, Truck, Phone, Star, Instagram, Facebook, Twitter, ChevronDown, Gift, Sparkles, Home as HomeIcon, Mail } from "lucide-react";
 import { handleNavClick } from "@/lib/scroll";
+import { searchProducts, productCardId, type Product } from "@/lib/products";
 import logo from "@/assets/sparsh/logo.png";
 
 const announcements = [
@@ -17,13 +18,60 @@ const navLinks = [
   { label: "Contact", slug: "contact", id: "contact", icon: Mail },
 ];
 
-const popularSearches = ["Masala Chai", "Nagni Strong", "Green Blends", "Gift Packs"];
+const popularSearches = ["Naagni Strong", "Masala Chai", "Elaichi", "Royal Assam"];
 
 const hrefFor = (slug: string) => (slug ? `/${slug}` : "/");
+
+// Briefly outlines the product card a search result jumped to.
+const HIGHLIGHT = ["ring-2", "ring-primary", "ring-offset-8", "ring-offset-white"];
+
+function SearchResults({ query, results, onPick }: { query: string; results: Product[]; onPick: (id: string) => void }) {
+  if (!query.trim()) return null;
+  if (results.length === 0) {
+    return <p className="mt-3 text-sm text-muted-foreground">No teas match “{query.trim()}”. Try Naagni, No.1, Gold, Masala, Elaichi or Royal.</p>;
+  }
+  return (
+    <ul className="mt-3 divide-y divide-border border border-border rounded-2xl overflow-hidden bg-white">
+      {results.map((p) => (
+        <li key={p.id}>
+          <button type="button" onClick={() => onPick(p.id)} className="group w-full flex items-center gap-3 px-3 py-2.5 text-left hover:bg-cream transition">
+            <img src={p.imgs[0]} alt="" className="w-12 h-12 rounded-lg object-cover flex-shrink-0" />
+            <span className="flex-1 min-w-0">
+              <span className="block font-heading text-base text-dark truncate">{p.name}</span>
+              <span className="block text-xs text-muted-foreground truncate">{p.price}</span>
+            </span>
+            <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition flex-shrink-0" />
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 export default function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const results = searchProducts(query);
+
+  const goToProduct = (id: string) => {
+    setSearchOpen(false);
+    setMenuOpen(false);
+    setQuery("");
+    // Wait a beat so the drawer's scroll lock is released before scrolling.
+    setTimeout(() => {
+      const el = document.getElementById(productCardId(id));
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add(...HIGHLIGHT);
+      setTimeout(() => el.classList.remove(...HIGHLIGHT), 2600);
+    }, 120);
+  };
+
+  const submitSearch = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (results.length > 0) goToProduct(results[0].id);
+  };
   const [scrolled, setScrolled] = useState(false);
   const [announceIdx, setAnnounceIdx] = useState(0);
 
@@ -47,8 +95,8 @@ export default function SiteHeader() {
   return (
     <>
       {/* Announcement bar (rotating, collapses on scroll) */}
-      <div className={`bg-forest text-forest-foreground overflow-hidden transition-all duration-500 ${scrolled ? "max-h-0 opacity-0" : "max-h-12 opacity-100"}`}>
-        <div className="max-w-[1400px] mx-auto px-6 h-9 flex items-center justify-between text-xs">
+      <div className={`bg-forest text-forest-foreground overflow-hidden transition-all duration-500 ${scrolled ? "max-h-0 opacity-0" : "max-h-16 opacity-100"}`}>
+        <div className="max-w-[max(1400px,78vw)] mx-auto px-6 h-9 md:h-[clamp(44px,2vw,60px)] flex items-center justify-between text-xs md:text-[clamp(14px,0.68vw,19px)]">
           <div className="relative flex-1 h-full">
             {announcements.map((a, i) => {
               const Ic = a.icon;
@@ -57,7 +105,7 @@ export default function SiteHeader() {
                   key={i}
                   className={`absolute inset-y-0 left-0 flex items-center gap-2 transition-all duration-500 ${i === announceIdx ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2 pointer-events-none"}`}
                 >
-                  <Ic className="w-3.5 h-3.5 text-primary" />
+                  <Ic className="w-3.5 h-3.5 md:w-[1.15em] md:h-[1.15em] text-primary" />
                   <span className="tracking-wide">{a.text}</span>
                 </span>
               );
@@ -73,11 +121,11 @@ export default function SiteHeader() {
 
       {/* Header */}
       <header className={`sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b transition-all duration-300 ${scrolled ? "border-border shadow-[0_10px_30px_-12px_rgba(0,0,0,0.18)]" : "border-transparent"}`}>
-        <div className={`max-w-[1400px] mx-auto px-6 grid grid-cols-2 md:grid-cols-3 items-center transition-all duration-300 ${scrolled ? "h-16" : "h-20"}`}>
+        <div className={`max-w-[max(1400px,78vw)] mx-auto px-6 grid grid-cols-2 md:grid-cols-3 items-center transition-all duration-300 ${scrolled ? "h-16 md:h-[clamp(72px,3.5vw,104px)]" : "h-20 md:h-[clamp(96px,4.7vw,140px)]"}`}>
           {/* Left nav */}
-          <nav className="hidden md:flex items-center gap-7">
+          <nav className="hidden md:flex items-center gap-[clamp(2rem,2.1vw,3.75rem)]">
             {navLinks.map((n) => (
-              <a key={n.label} href={hrefFor(n.slug)} onClick={(e) => handleNavClick(e, n.id, n.slug)} className="relative group uppercase tracking-wider text-[13px] font-medium text-dark hover:text-primary transition-colors">
+              <a key={n.label} href={hrefFor(n.slug)} onClick={(e) => handleNavClick(e, n.id, n.slug)} className="relative group uppercase tracking-wider text-[clamp(15px,0.78vw,22px)] font-medium text-dark hover:text-primary transition-colors">
                 {n.label}
                 <span className="absolute -bottom-1.5 left-0 h-0.5 w-0 bg-primary rounded-full transition-all duration-300 group-hover:w-full" />
               </a>
@@ -85,24 +133,24 @@ export default function SiteHeader() {
           </nav>
           {/* Logo */}
           <a href="/" onClick={(e) => handleNavClick(e, "home", "")} className="flex items-center justify-start md:justify-center">
-            <img src={logo} alt="Sparsh Tea" className={`w-auto transition-all duration-300 ${scrolled ? "h-12" : "h-16"}`} />
+            <img src={logo} alt="Sparsh Tea" className={`w-auto transition-all duration-300 ${scrolled ? "h-12 md:h-[clamp(56px,2.9vw,84px)]" : "h-16 md:h-[clamp(80px,4vw,116px)]"}`} />
           </a>
           {/* Right icons (desktop) */}
-          <div className="hidden md:flex items-center justify-end gap-1.5 text-dark">
-            <button onClick={() => setSearchOpen((v) => !v)} aria-label="Search" title="Search" className="w-10 h-10 grid place-items-center rounded-full hover:bg-cream transition">
-              {searchOpen ? <X className="w-5 h-5" /> : <Search className="w-5 h-5" />}
+          <div className="hidden md:flex items-center justify-end gap-1.5 text-dark text-[clamp(16px,0.8vw,23px)]">
+            <button onClick={() => setSearchOpen((v) => !v)} aria-label="Search" title="Search" className="w-[2.75em] h-[2.75em] grid place-items-center rounded-full hover:bg-cream transition">
+              {searchOpen ? <X className="w-[1.5em] h-[1.5em]" /> : <Search className="w-[1.5em] h-[1.5em]" />}
             </button>
-            <button aria-label="Account" title="Login / Register" className="w-10 h-10 grid place-items-center rounded-full hover:bg-cream transition"><User className="w-5 h-5" /></button>
-            <button aria-label="Wishlist" title="Wishlist" className="relative w-10 h-10 grid place-items-center rounded-full hover:bg-cream transition">
-              <Heart className="w-5 h-5" />
+            <button aria-label="Account" title="Login / Register" className="w-[2.75em] h-[2.75em] grid place-items-center rounded-full hover:bg-cream transition"><User className="w-[1.5em] h-[1.5em]" /></button>
+            <button aria-label="Wishlist" title="Wishlist" className="relative w-[2.75em] h-[2.75em] grid place-items-center rounded-full hover:bg-cream transition">
+              <Heart className="w-[1.5em] h-[1.5em]" />
               <span className="absolute top-1 right-1 min-w-[16px] h-4 px-1 grid place-items-center rounded-full bg-primary text-primary-foreground text-[10px] font-semibold">2</span>
             </button>
-            <button aria-label="Cart" title="Cart" className="relative flex items-center gap-2 pl-2.5 pr-4 h-10 rounded-full bg-forest text-forest-foreground hover:bg-primary transition ml-1">
+            <button aria-label="Cart" title="Cart" className="relative flex items-center gap-2 pl-[0.8em] pr-[1.25em] h-[2.75em] rounded-full bg-forest text-forest-foreground hover:bg-primary transition ml-1">
               <span className="relative">
-                <ShoppingBag className="w-5 h-5" />
+                <ShoppingBag className="w-[1.3em] h-[1.3em]" />
                 <span className="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 grid place-items-center rounded-full bg-primary text-primary-foreground text-[10px] font-semibold ring-2 ring-forest">0</span>
               </span>
-              <span className="text-xs font-medium">Cart</span>
+              <span className="text-[0.875em] font-medium">Cart</span>
             </button>
           </div>
           {/* Right icons (mobile) */}
@@ -119,17 +167,19 @@ export default function SiteHeader() {
         </div>
 
         {/* Expandable search panel */}
-        <div className={`border-t bg-white overflow-hidden transition-all duration-300 ${searchOpen ? "max-h-44 opacity-100 border-border" : "max-h-0 opacity-0 border-transparent"}`}>
-          <div className="max-w-[1400px] mx-auto px-6 py-4">
-            <div className="relative">
+        <div className={`border-t bg-white transition-all duration-300 ${searchOpen ? "max-h-[75vh] overflow-y-auto opacity-100 border-border" : "max-h-0 overflow-hidden opacity-0 border-transparent"}`}>
+          <div className="max-w-[max(1400px,78vw)] mx-auto px-6 py-4">
+            <form onSubmit={submitSearch} role="search" className="relative">
               <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" />
-              <input type="text" placeholder="Search for teas, blends, gift packs…" className="w-full bg-cream rounded-full pl-12 pr-12 py-3.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
-              <button onClick={() => setSearchOpen(false)} aria-label="Close search" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-dark transition"><X className="w-4 h-4" /></button>
-            </div>
+              {/* 16px text on phones stops iOS zooming the page when the field is focused */}
+              <input type="search" enterKeyHint="search" value={query} onChange={(e) => setQuery(e.target.value)} tabIndex={searchOpen ? 0 : -1} aria-label="Search teas" placeholder="Search for teas — Naagni, Masala, Elaichi…" className="w-full bg-cream rounded-full pl-12 pr-12 py-3.5 text-base md:text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 [&::-webkit-search-cancel-button]:hidden" />
+              <button type="button" onClick={() => { setSearchOpen(false); setQuery(""); }} aria-label="Close search" className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-dark transition"><X className="w-4 h-4" /></button>
+            </form>
+            <SearchResults query={query} results={results} onPick={goToProduct} />
             <div className="flex items-center gap-2 mt-3 flex-wrap">
               <span className="text-xs text-muted-foreground">Popular:</span>
               {popularSearches.map((s) => (
-                <button key={s} className="text-xs px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary transition">{s}</button>
+                <button key={s} type="button" onClick={() => setQuery(s)} className="text-xs px-3 py-1.5 rounded-full border border-border text-muted-foreground hover:border-primary hover:text-primary transition">{s}</button>
               ))}
             </div>
           </div>
@@ -151,10 +201,11 @@ export default function SiteHeader() {
             </div>
 
             <div className="px-5 pt-4">
-              <div className="relative">
+              <form onSubmit={submitSearch} role="search" className="relative">
                 <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
-                <input type="text" placeholder="Search teas, blends, gift packs…" className="w-full bg-cream rounded-full pl-10 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40" />
-              </div>
+                <input type="search" enterKeyHint="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search teas" placeholder="Search teas — Naagni, Masala…" className="w-full bg-cream rounded-full pl-10 pr-4 py-3 text-base focus:outline-none focus:ring-2 focus:ring-primary/40 [&::-webkit-search-cancel-button]:hidden" />
+              </form>
+              <SearchResults query={query} results={results} onPick={goToProduct} />
             </div>
 
             <nav className="px-3 py-3 flex flex-col">
